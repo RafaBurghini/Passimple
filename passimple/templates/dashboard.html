@@ -1,0 +1,193 @@
+{% extends 'base.html'%}
+
+{% block header %} Dashboard {% endblock %}
+
+{% block content %}
+    <div class="dashboard-container-button">
+        <!-- Botón para abrir el modal -->
+        <button id="openModalBtn" class="purplebutton">+ Add New</button>
+
+    </div>
+        <!-- Modal -->
+        <div id="addAccountModal" class="modal">
+            <span class="closeaddaccount">&times;</span>
+        <div class="modal-content">
+            <h2>Add new account information</h2>
+            <form method="POST" action="{% url 'dashboard' %}" class="newaccountform">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="button" id="cancelbutton" class="purplebutton">Cancel</button>
+            <button type="submit" class="purplebutton">Save</button>
+            </form>
+        </div>
+        </div>
+    <!-- Modal de Edición -->
+    <div id="editModal" class="modal">
+        <span class="closeedit">&times;</span>
+        <div class="modal-content">
+            <form id="editForm" class="modal-form-edit" method="post" action="{% url 'dashboard' %}">
+                <h2>Edit account information</h2>
+                {% csrf_token %}
+                <label for="site">Site:</label>
+                <input type="text" id="editSite" name="site">
+                
+                <label for="username">Username:</label>
+                <input type="text" id="editUsername" name="username">
+                
+                <label for="email">Email:</label>
+                <input type="email" id="editEmail" name="email">
+                
+                <label for="password">Password:</label>
+                <input type="text" id="editPassword" name="password">
+                
+                <input type="hidden" id="editId" name="id">
+                
+                <button type="button" id="canceleditmodalbutton" class="purplebutton">Cancel</button>
+                <button type="submit" class="purplebutton">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in accounts %}
+                    <tr>
+                        <td>{{ account.site }}</td>
+                        <td><span id="username-{{ forloop.counter }}">***********</span></td>
+                        <td><span id="email-{{ forloop.counter }}">***********</span></td>
+                        <td><span id="password-{{ forloop.counter }}">***********</span>
+                            <button class="table-button-copypass" data-id="{{ forloop.counter }}" data-password="{{ account.password }}"><i class="fa-regular fa-copy"></i></button>
+                        </td>
+                        <td>
+                            <button class="table-button" onclick="toggleInfo({{ forloop.counter }}, '{{ account.username }}', '{{ account.email }}', '{{ account.password }}')" data-shown="false" id="toggle-btn-{{ forloop.counter }}">Show</button>                        
+                            <button class="edit-button table-button" id="editbutton" data-id="{{ account.id }}" data-site="{{ account.site }}" data-username="{{ account.username }}" data-email="{{ account.email }}" data-password="{{ account.password }}" href="{% url 'edit_accountinfo' account.id %}">Edit</button>
+                            <a class="table-button" href="{% url 'delete_accountinfo' account.id %}">Delete</a>
+                        </td>              
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+          // Get the modal
+        var modal = document.getElementById("addAccountModal");
+        
+          // Get the button that opens the modal
+        var btn = document.getElementById("openModalBtn");
+
+        var cancelbtn = document.getElementById("cancelbutton");
+        
+          // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("closeaddaccount")[0];
+        
+          // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        cancelbtn.onclick = function() {
+            modal.style.display = "none";
+        }
+          // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+          // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            }
+        }
+        
+    });
+    document.addEventListener('DOMContentLoaded', (event) => {
+          // Get the modal
+        var modal = document.getElementById("editModal");
+        
+          // Get the button that opens the modal
+        var btn = document.getElementById("editbutton");
+        var cancelbtn = document.getElementById("canceleditmodalbutton");
+          // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("closeedit")[0];
+        
+          // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        cancelbtn.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+          // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+          // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            }
+        }
+        
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+            const copyButtons = document.querySelectorAll('.table-button-copypass');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const password = this.getAttribute('data-password');
+                    copytoclipboard(id, password);
+                });
+            });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Código existente para los botones de copiar...
+    
+        // Manejar clic en botón Edit
+        const editButtons = document.querySelectorAll('.edit-button');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const site = this.getAttribute('data-site');
+                const username = this.getAttribute('data-username');
+                const email = this.getAttribute('data-email');
+                const password = this.getAttribute('data-password');
+    
+                // Cargar los datos en el formulario del modal
+                document.getElementById('editId').value = id;
+                document.getElementById('editSite').value = site;
+                document.getElementById('editUsername').value = username;
+                document.getElementById('editEmail').value = email;
+                document.getElementById('editPassword').value = password;
+    
+                // Mostrar el modal
+                document.getElementById('editModal').style.display = 'block';
+            });
+        });
+    
+        // Manejar clic en botón Borrar
+        document.getElementById('deleteButton').addEventListener('click', function() {
+            const id = document.getElementById('editId').value;
+            // Aquí debes implementar la lógica para borrar el registro
+            // Esto podría implicar enviar una solicitud a tu servidor para eliminar el registro
+            console.log('Borrar registro con ID:', id);
+            // Opcionalmente, cierra el modal después de borrar
+            document.getElementById('editModal').style.display = 'none';
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html'%}
+
+{% block header %} Pass Generator {% endblock %}
+
+{% block content %}
+    <div class="passgen-container">
+        <h2>Password Generator</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="length" class="form-label">Password length</label>
+                <input type="number" class="form-control" id="length" name="length" min="8" required>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="Letters" name="Letters" checked>
+                <label class="form-check-label" for="Letters">Include letters</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="Digits" name="Digits">
+                <label class="form-check-label" for="Digits">Include numbers</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="SpecialChars" name="SpecialChars">
+                <label class="form-check-label" for="SpecialChars">Include special characters</label>
+            </div>
+            <button type="submit" class="purplebutton">Generate Password</button>
+        </form>
+
+        <div class="pass-generated">
+                {% if password %}
+                    <h3>Password generated</h3>
+                    <strong id="generatedPassword">Password: {{password}}</strong>
+                    <!-- button to copy password -->
+                    <button type="button" class="purplebutton" onclick="copypassword()">Copy Password</button>
+            
+                    {% if score is not None %}
+                        <p>Password Score: {{ score }}/4</p>
+                    {% endif %}
+
+                {% endif %}
+            
+        </div>
+
+
+
+        <script>
+                function copypassword() {
+                    var passwordText = document.getElementById("generatedPassword").innerText.split(": ")[1]; // Obtiene solo la contraseña sin el prefijo "Password: "
+                    navigator.clipboard.writeText(passwordText).then(function() {
+                        alert("Password copied to clipboard!"); // Opcional: muestra un mensaje de confirmación
+                    }, function(err) {
+                        console.error('Could not copy text: ', err);
+                    });
+                }
+        </script>
+    </div>
+    
+{% endblock %}

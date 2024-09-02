@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+
+{% block header %} Security Check {% endblock %}
+
+
+{% block content %}
+    <div class="passgen-container">
+        <h2>Analyse your password strength</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="length" class="form-label">Password: </label>
+                <input type="text" class="form-control" id="password" name="password" min="1" required>
+            </div>
+            <button type="submit" class="purplebutton">Analyse Password</button>
+        </form>
+        <div class="pass-generated">
+            {% if password %}
+                    <h3>Password Analysed</h3>
+                {% if score is not None %}
+                    <p>Password Score: {{ score }}/4</p>
+                {% endif %}
+                {% if feedback %}
+                    <p>Suggestion: {{ feedback }}</p>
+                {% else %}
+                    <p>The password is perfect</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock%}
