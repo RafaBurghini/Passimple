@@ -87,4 +87,6 @@ class EditAccountForm(forms.ModelForm):
     def save(self, commit=True):
         account = super().save(commit=commit)
         return account
-    
+
+class PasswordCheckForm(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput, label='Password')

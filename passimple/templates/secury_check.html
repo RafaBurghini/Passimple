@@ -8,24 +8,20 @@
         <h2>Analyse your password strength</h2>
         <form method="post">
             {% csrf_token %}
-            <div class="mb-3">
-                <label for="length" class="form-label">Password: </label>
-                <input type="text" class="form-control" id="password" name="password" min="1" required>
-            </div>
-            <button type="submit" class="purplebutton">Analyse Password</button>
+            <label for="password">Enter Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit" class="purplebutton">Check Password</button>
         </form>
-        <div class="pass-generated">
-            {% if password %}
-                    <h3>Password Analysed</h3>
-                {% if score is not None %}
-                    <p>Password Score: {{ score }}/4</p>
-                {% endif %}
-                {% if feedback %}
-                    <p>Suggestion: {{ feedback }}</p>
-                {% else %}
-                    <p>The password is perfect</p>
-                {% endif %}
-            {% endif %}
+    
+        {% if strength is not None %}
+            <h3>Password Strength: {{ strength }}</h3>
+            <h3>Estimated Crack Time: {{ crack_time }}</h3>
+            <ul>
+                {% for item in feedback %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         </div>
     </div>
 {% endblock%}

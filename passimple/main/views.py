@@ -8,7 +8,7 @@ from .models import Account
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-
+from passwordguard import calculate_password_strength, calculate_cracking_time
 
 
 
@@ -45,22 +45,31 @@ def logout_view(request):
 @login_required
 def dashboard(request):
     form = AddAccountForm()
+    editaccountform = None
+
     if request.method == 'POST':
-        form = AddAccountForm(request.POST)
-        if form.is_valid():
-            new_account = form.save()
-            new_account.user = request.user  
-            new_account.save()
-            return redirect('dashboard')
+        if 'add_account' in request.POST:
+            form = AddAccountForm(request.POST)
+            if form.is_valid():
+                new_account = form.save(commit=False)
+                new_account.user = request.user
+                new_account.save()
+                return redirect('dashboard')
+        elif 'edit_account' in request.POST:
+            account_id = request.POST.get('account_id')
+            account = get_object_or_404(Account, id=account_id)
+            editaccountform = EditAccountForm(request.POST, instance=account)
+            if editaccountform.is_valid():
+                editaccountform.save()
+                return redirect('dashboard')
     else:
         form = AddAccountForm()
         editaccountform = EditAccountForm()
 
     accounts = Account.objects.filter(user=request.user)
-    return render(request, 'dashboard.html', {'form': form, 'accounts': accounts, ' ten': editaccountform})
+    return render(request, 'dashboard.html', {'form': form, 'accounts': accounts, 'editaccountform': editaccountform})
 
-
-
+@login_required
 def edit_accountinfo(request, account_id):
     accountinfo = get_object_or_404(Account, id=account_id)
 
@@ -72,7 +81,7 @@ def edit_accountinfo(request, account_id):
     else:
         form = EditAccountForm(instance=accountinfo)
 
-    return render(request, 'edit_accountinfo.html', {'form': form})
+    return render(request, 'edit_account.html', {'form': form, 'accountinfo': accountinfo})
 
 
 def delete_accountinfo(request, account_id):
@@ -106,7 +115,7 @@ def passgen(request):
 
 
 
-def secury_check(request):
+"""def secury_check(request):
     password = ''
     score = 0
     feedback = []
@@ -120,3 +129,16 @@ def secury_check(request):
         verificator = "Error analyzing password"
 
     return render(request, 'secury_check.html', {'password': password, 'verificator': verificator, 'score': score, 'feedback': feedback})
+"""
+
+def secury_check(request):
+    strength = None
+    feedback = None
+    crack_time = None
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        if password:
+            strength = calculate_password_strength(password)
+            feedback = password_verification(password)['feedback']
+            crack_time = calculate_cracking_time(password)
+    return render(request, 'secury_check.html', {'strength': strength, 'feedback': feedback, 'crack_time': crack_time})

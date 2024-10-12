@@ -51,48 +51,45 @@
         </div>
     </nav>
 
-    {% if request.path != '/' and request.path != '/sign_up' and request.path != '/login' %}
-        <div class="container">
-            <div class="sidebar-container">
-                    <div>
-                        <div class="sidebar">
-                            <ul class="dashboard-links">
-                                <h4 class="dashboard-title">Passimple</h4>
-                                <li>
-                                    
-                                    <a class="sidebar-link" href="{% url 'dashboard' %}">
-                                        <i class="fa-solid fa-house"></i>
-                                        Dashboard
-                                    </a>
-                                </li>
-                    
-                                <li>
-                                    <a class="sidebar-link" href="{% url  'passgen' %}">
-                                        <i class="fa-solid fa-key"></i>
-                                        Pass Generator
-                                    </a>
-                                </li>
-                    
-                                <li>
-                                    <a class="sidebar-link" href="{% url  'secury_check' %}">
-                                        <i class="fa-solid fa-eye"></i>
-                                        Security Check
-                                    </a>
-                                </li>
+    <div>
+        {% if request.path != '/' and request.path != '/sign_up' and request.path != '/accounts/login/' %}
+            <div class="container">
+                <div class="sidebar-container">
+                        <div>
+                            <div class="sidebar">
+                                <ul class="dashboard-links">
+                                    <h4 class="dashboard-title">Passimple</h4>
+                                    <li>
+                                        
+                                        <a class="sidebar-link" href="{% url 'dashboard' %}">
+                                            <i class="fa-solid fa-house"></i>
+                                            Dashboard
+                                        </a>
+                                    </li>
+                        
+                                    <li>
+                                        <a class="sidebar-link" href="{% url  'passgen' %}">
+                                            <i class="fa-solid fa-key"></i>
+                                            Pass Generator
+                                        </a>
+                                    </li>
+                        
+                                    <li>
+                                        <a class="sidebar-link" href="{% url  'secury_check' %}">
+                                            <i class="fa-solid fa-eye"></i>
+                                            Security Check
+                                        </a>
+                                    </li>
+                            </div>
                         </div>
-                    </div>
-            </div>
-    {% endif %}
-
-
-        <div>
-            {% block content %}
-            {% endblock %}
-        </div>
+                </div>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
     </div>
 
     <footer class="footer">
-        <p>&copy; 2024 Passimple</p>
+        <a href="https://rafaelburghini.com/">Powered by Rafael Burghini</a>
     </footer>
 
     

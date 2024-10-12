@@ -2,6 +2,7 @@ import string
 import random
 from zxcvbn import zxcvbn
 from cryptography.fernet import Fernet
+
 def generate_password(length=8, letters=True, digits=True, specialChars=False):
     characters = ''
     if letters:

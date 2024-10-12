@@ -30,29 +30,23 @@
         <div class="pass-generated">
                 {% if password %}
                     <h3>Password generated</h3>
-                    <strong id="generatedPassword">Password: {{password}}</strong>
+                    <strong id="generatedPassword">{{password}}</strong>
                     <!-- button to copy password -->
                     <button type="button" class="purplebutton" onclick="copypassword()">Copy Password</button>
-            
-                    {% if score is not None %}
-                        <p>Password Score: {{ score }}/4</p>
-                    {% endif %}
-
                 {% endif %}
             
         </div>
 
 
-
         <script>
-                function copypassword() {
-                    var passwordText = document.getElementById("generatedPassword").innerText.split(": ")[1]; // Obtiene solo la contraseña sin el prefijo "Password: "
-                    navigator.clipboard.writeText(passwordText).then(function() {
-                        alert("Password copied to clipboard!"); // Opcional: muestra un mensaje de confirmación
-                    }, function(err) {
-                        console.error('Could not copy text: ', err);
-                    });
-                }
+            function copypassword() {
+                var passwordText = document.getElementById("generatedPassword").innerText; // Obtiene directamente el texto de la contraseña
+                navigator.clipboard.writeText(passwordText).then(function() {
+                    alert("Password copied to clipboard!"); // Opcional: muestra un mensaje de confirmación
+                }, function(err) {
+                    console.error('Could not copy text: ', err);
+                });
+            }
         </script>
     </div>
     
