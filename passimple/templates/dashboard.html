@@ -6,22 +6,22 @@
     <div class="dashboard-container-button">
         <!-- Botón para abrir el modal -->
         <button id="openModalBtn" class="purplebutton">+ Add New</button>
-
     </div>
-        <!-- Modal -->
-        <div id="addAccountModal" class="modal">
-            <span class="closeaddaccount">&times;</span>
+
+    <!-- Modal para agregar una nueva cuenta -->
+    <div id="addAccountModal" class="modal">
         <div class="modal-content">
-            <h2>Add new account information</h2>
-            <form method="POST" action="{% url 'dashboard' %}" class="newaccountform">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="button" id="cancelbutton" class="purplebutton">Cancel</button>
-            <button type="submit" class="purplebutton">Save</button>
+            <span class="closeaddaccount">&times;</span>
+            <form method="post" action="{% url 'dashboard' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" name="add_account">Add New</button>
+                <button type="button" id="cancelbutton">Cancel</button>
             </form>
         </div>
-        </div>
-        <!-- Modal de Edición -->
+    </div>
+
+    <!-- Modal de Edición -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
@@ -112,6 +112,7 @@
             // Get the button that opens the modal
             var btn = document.getElementById("openModalBtn");
 
+            // Get the cancel button
             var cancelbtn = document.getElementById("cancelbutton");
             
             // Get the <span> element that closes the modal
@@ -121,21 +122,23 @@
             btn.onclick = function() {
                 modal.style.display = "block";
             }
-            cancelbtn.onclick = function() {
-                modal.style.display = "none";
-            }
+
             // When the user clicks on <span> (x), close the modal
             span.onclick = function() {
                 modal.style.display = "none";
             }
-            
+
+            // When the user clicks the cancel button, close the modal
+            cancelbtn.onclick = function() {
+                modal.style.display = "none";
+            }
+
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+                if (event.target == modal) {
+                    modal.style.display = "none";
                 }
             }
-            
         });
         document.addEventListener('DOMContentLoaded', (event) => {
             // Get the modal

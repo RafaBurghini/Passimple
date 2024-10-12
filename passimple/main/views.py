@@ -51,7 +51,7 @@ def dashboard(request):
         if 'add_account' in request.POST:
             form = AddAccountForm(request.POST)
             if form.is_valid():
-                new_account = form.save(commit=False)
+                new_account = form.save()
                 new_account.user = request.user
                 new_account.save()
                 return redirect('dashboard')
