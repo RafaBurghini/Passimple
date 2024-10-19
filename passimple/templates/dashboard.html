@@ -11,8 +11,9 @@
     <!-- Modal para agregar una nueva cuenta -->
     <div id="addAccountModal" class="modal">
         <div class="modal-content">
-            <span class="closeaddaccount">&times;</span>
-            <form method="post" action="{% url 'dashboard' %}">
+            <h3>ADD A NEW ACCOUNT</h3>
+            <span class="closeaddaccount"></span>
+            <form method="post" action="{% url 'dashboard' %}" class="modal-form">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" name="add_account">Add New</button>
@@ -24,8 +25,9 @@
     <!-- Modal de Edición -->
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <form method="post" action="{% url 'dashboard' %}">
+            <h3>EDIT ACCOUNT</h3>
+            <span class="close" id="closeModal"></span>
+            <form method="post" action="{% url 'dashboard' %}" class="modal-form">
                 {% csrf_token %}
                 <input type="hidden" name="account_id" id="editAccountId">
                 <div>
@@ -42,7 +44,10 @@
                 </div>
                 <div>
                     <label for="editPassword">Password:</label>
-                    <input type="password" id="editPassword" name="password">
+                    <div class="password-container">
+                        <input type="password" id="editPassword" name="password">
+                        <button type="button" id="togglePassword" class="toggle-password">Show</button>
+                    </div>
                 </div>
                 <button type="submit" name="edit_account">Save</button>
             </form>
@@ -69,10 +74,10 @@
                     <td><span id="password-{{ forloop.counter }}">***********</span>
                         <button class="table-button-copypass" data-id="{{ forloop.counter }}" data-password="{{ account.password }}"><i class="fa-regular fa-copy"></i></button>
                     </td>
-                    <td>
+                    <td class="table-buttons">
                         <button class="table-button" onclick="toggleInfo({{ forloop.counter }}, '{{ account.username }}', '{{ account.email }}', '{{ account.password }}')" data-shown="false" id="toggle-btn-{{ forloop.counter }}">Show</button>                        
                         <button class="edit-button table-button" data-id="{{ account.id }}" data-site="{{ account.site }}" data-username="{{ account.username }}" data-email="{{ account.email }}" data-password="{{ account.password }}">Edit</button>
-                        <a class="table-button" href="{% url 'delete_accountinfo' account.id %}">Delete</a>
+                        <button class="delete-button table-button" data-id="{{ account.id }}">Delete</button>
                     </td>              
                 </tr>
                     <tr id="edit-form-{{ forloop.counter }}" style="display: none;">
@@ -105,6 +110,21 @@
         </table>
     </div>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejar clic en botón de mostrar/ocultar contraseña
+            const togglePasswordButton = document.getElementById('togglePassword');
+            const passwordField = document.getElementById('editPassword');
+    
+            togglePasswordButton.addEventListener('click', function() {
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    togglePasswordButton.textContent = 'Hide';
+                } else {
+                    passwordField.type = 'password';
+                    togglePasswordButton.textContent = 'Show';
+                }
+            });
+        });
         document.addEventListener('DOMContentLoaded', (event) => {
             // Get the modal
             var modal = document.getElementById("addAccountModal");
@@ -197,16 +217,17 @@
             });
         });
         });
-        // Manejar clic en botón Borrar
-        document.getElementById('deleteButton').addEventListener('click', function() {
-            const id = document.getElementById('editId').value;
-            // Aquí debes implementar la lógica para borrar el registro
-            // Esto podría implicar enviar una solicitud a tu servidor para eliminar el registro
-            console.log('Borrar registro con ID:', id);
-            // Opcionalmente, cierra el modal después de borrar
-            document.getElementById('editModal').style.display = 'none';
-        });
 
+
+        // Manejar clic en botón de eliminar
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const accountId = this.getAttribute('data-id');
+                if (confirm("Are you sure you want to delete this account? This action cannot be undone.")) {
+                    window.location.href = `{% url 'delete_accountinfo' 0 %}`.replace('0', accountId);
+                }
+            });
+        });
         // Cerrar el modal cuando se hace clic en el botón de cerrar
         document.getElementById('closeModal').addEventListener('click', function() {
             document.getElementById('editModal').style.display = 'none';
@@ -219,6 +240,7 @@
                 modal.style.display = 'none';
             }
         });
+        
 
         function openEditModal(accountId, site, username, email, password) {
             document.getElementById('editAccountId').value = accountId;
@@ -250,6 +272,7 @@
                 toggleBtn.setAttribute('data-shown', 'false');
             }
         }
+        
         document.addEventListener('DOMContentLoaded', function() {
             // Manejar clic en botón de copiar contraseña
             document.querySelectorAll('.table-button-copypass').forEach(button => {
@@ -263,5 +286,7 @@
                 });
         });
         });
+
+        
     </script>
 {% endblock %}

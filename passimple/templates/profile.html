@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="profile-container">
+        <h1 class="title">PROFILE INFORMATION</h1>
+        <div class="column">
+            <div>
+                <a href="{% url 'profile_info' %}" class="btn-profile">Profile Information</a>
+            </div>
+            <div>
+                <form action="{% url 'password_change' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-profile">Change Password</button>
+                </form>
+            </div>
+            <div>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %} 
+                    <button class="btn-profile" type="submit">Logout</button>
+                </form>
+            </div>
+            <div>
+                <form action="{% url 'delete_account' %}" method="post" id="deleteAccountForm">
+                    {% csrf_token %}
+                    <button type="button" class="btn-delaccount" data-id="{{ user.id }}">Delete Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejar clic en botón de eliminar cuenta
+            document.querySelectorAll('.btn-delaccount').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (confirm("Are you sure you want to delete this account? This action cannot be undone.")) {
+                        document.getElementById('deleteAccountForm').submit();
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -26,14 +26,14 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
+                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
                     </li>
 
-                    <span class="navbar-text">Logged in as {{user.username}} |</span>
+                    <span class="navbar-text navbar-link">Logged in as {{user.username}} |</span>
                     <li class="nav-item">
                         <form action="{% url 'logout' %}" method="post">
                             {% csrf_token %} 
-                            <button class="btn btn-link" type="submit">Logout</button>
+                            <button class="btn btn-link purplebutton" type="submit">Logout</button>
                         </form>
                     </li>
                     {% else %}
@@ -52,7 +52,7 @@
     </nav>
 
     <div>
-        {% if request.path != '/' and request.path != '/sign_up' and request.path != '/accounts/login/' %}
+        {% if request.path == '/dashboard/' or request.path == '/passgen/' or request.path == '/secury_check/' %}
             <div class="container">
                 <div class="sidebar-container">
                         <div>

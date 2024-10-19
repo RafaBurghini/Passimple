@@ -69,12 +69,6 @@ h1 {
     margin: 0 10px;
 }
 
-.nav-link:hover {
-    background-color: var(--secondary-color);
-    color: #FFFFFF;
-    border-radius: 10px;
-    padding: 5px;
-}
 
 .content-home {
     display: flex;
@@ -142,6 +136,8 @@ h1 {
 
 .features-section{
     margin-top: 200px;
+    
+
 }
 
 
@@ -171,30 +167,13 @@ h1 {
     align-items: center;
     padding: 40px 20px 40px 20px;
     border-radius: 20px;
-    background-color: var(--gray-color);
+    background-color: var(--secondary-color);
     font-size: 20px;
     font-weight: bold;
     text-align: left;
+    color: white;
 }
 
-
-/* TESTIMONIALS */
-
-.testimonials {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-    padding: 10px;
-    color: #FFFFFF;
-    width: 0 auto;
-    background-color: var(--secondary-color);
-}
-
-.testimonial {
-    font-weight: bold;
-    text-align: center;
-}
 
 /* FAQ */
 
@@ -205,16 +184,22 @@ h1 {
     margin: 100px;
     padding: 10px;
     border-radius: 30px;
-    background-color: var(--primary-color);
+    background-color: var(--accent-color) ;
+    color: whitesmoke;
 }
 
 .question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
     padding: 10px;
     border-style: solid;
     border-radius: 20px;
     border-width: 1px;
     margin-top: 20px;
-    border-color: black;
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);  
 }
 
 .question:last-of-type {
@@ -230,7 +215,9 @@ h1 {
     margin: 100px;
     padding: 10px;
     border-radius: 30px;
-    background-color: var(--primary-color);
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--accent-color);
 }
 
 .buttonregister {
@@ -259,7 +246,6 @@ h1 {
 
 }
 
-
 /* FOOTER */
 .footer {
     background-color: var(--secondary-color);
@@ -280,29 +266,28 @@ h1 {
     flex-direction: column;
     align-items: center;
     margin: 100px;
-    padding: 10px;
+    font-size: 20px;
+    padding: 30px;
     border-style: solid;
     border-width: 2px;
     border-color: var(--accent-color);
     border-radius: 30px;
 }
 
-.sign_up-title {
-    font-size:20px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-}
-
 .sign_up-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin-top: 20px;
     background-color: var(--background-color);
+    padding: 20px;
 
 }
 
+.sign_up-form a{
+    color: var(--accent-color);
+    font-weight: bold;
+    padding: 10px;
+}
 
 /* DASHBOARD */
 
@@ -389,12 +374,58 @@ h1 {
     align-items: center;
     background-color: #fefefe;
     margin: 15% auto; 
-    padding: 20px;
+    padding: 5px;
     border: 1px solid #888;
     width: 80%; 
     align-items: center;
     justify-content: center;
     border-radius: 30px;
+    font-size: 20px;
+}
+
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-form div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.modal-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modal-form input[type="text"],
+.modal-form input[type="email"],
+.modal-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.modal-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.modal-form button[type="submit"] {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+.modal-form button[type="button"] {
+    background-color: #ccc;
+    color: #333;
 }
 
 
@@ -405,19 +436,28 @@ h1 {
     margin-top: 20px;
 }
 
-.close-btn {
-    color: var(--secondary-color);
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+.password-container {
+    display: flex;
+    align-items: left;
 }
 
+.password-container input[type="password"] {
+    flex: 1;
+}
 
-.close-btn:hover,
-.close-btn:focus {
-    color: black;
-    text-decoration: none;
+.toggle-password {
+    padding: 5px 10px;
+    border: none;
+    background-color: #ccc;
+    color: #333;
     cursor: pointer;
+    border-radius: 5px;
+    align-items: left;
+
+}
+
+.toggle-password:hover {
+    background-color: #bbb;
 }
 
 /* SIDEBAR */
@@ -548,4 +588,343 @@ h1 {
 
 .table-button-copypass:hover {
     background: var(--secondary-color);
+}
+
+/* PROFILE */
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100px;
+    padding: 10px;
+    border-radius: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--accent-color);
+
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 350px;
+    padding-left: 0;
+    color: var(--text-color)
+}
+
+
+.col {
+    padding: 20px;
+}
+
+.col:hover{
+    color: var(--accent-color);
+    border-radius: 10px;
+}
+
+.btn-delaccount {
+    box-sizing: border-box;
+    color: red;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 24px;
+    opacity: 1;
+    outline: 0 solid transparent;
+    padding: 20px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    word-break: break-word;
+    border: 0;
+    background-color: var(--background-color);
+}
+
+.btn-delaccount:hover {
+    color: rgb(145, 0, 0);
+}
+
+.btn-profile{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 24px;
+    opacity: 1;
+    outline: 0 solid transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    word-break: break-word;
+    border: 0;
+}
+
+.btn-profile:hover {
+    color: var(--accent-color);
+
+}
+
+
+/* PASSWORD CHANGE */
+
+.password-change-container{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    margin: 100px;
+    padding: 10px;
+    border-radius: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--accent-color);
+}
+
+.form-password-change {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    background-color: var(--background-color);
+    padding: 20px;
+    align-items: left;
+}
+
+.form-password-change ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.form-password-change li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.profile-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100px;
+    padding: 10px;
+    border-radius: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--accent-color);
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+
+/* MEDIA QUERIES */
+
+/* Tablets */
+@media (max-width: 768px) {
+
+    /* NAVIGATION */
+    .navbar-nav {
+        justify-content: center;
+        padding: 0;
+
+    }
+    .nav-link {
+        color: var(--secondary-color);
+    }
+    .nav-link:hover {
+        color: var(--accent-color);
+    }
+
+    /* HOME */
+    .intro {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 0;
+    }
+    /* FEATURES */
+    .faq, .register, .sign_up-container, .dashboard-container, .passgen-container, .profile-container, .password-change-container, .profile-info-container {
+        padding: 20px;
+        margin: 50px;
+    }
+
+    .content-home, .features, .pass-generated {
+        width: 100%;
+    }
+
+    .column {
+        margin-right: 0;
+    }
+
+    .btn-profile {
+        padding: 10px;
+    }
+
+    .btn-delaccount {
+        padding: 10px;
+    }
+
+    /* dashboard */
+
+    .table {
+        margin-left: 0;
+        font-size: 15px;
+    }
+    .form-password-change {
+        margin-left: 0;
+    }
+
+    .form-password-change ul {
+        margin-left: 0;
+    }
+
+    .form-password-change li {
+        margin-left: 0;
+    }
+
+    .form-group {
+        margin-left: 0;
+    }
+
+    .sidebar-container {
+        width: 100%;
+        height: auto;
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+        margin-left: 0;
+    }
+
+    .dashboard-container {
+        margin: 10px;
+        padding: 10px;
+    
+    
+}
+
+/* Phones */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 50px;
+    }
+
+    .title {
+        font-size: 40px;
+    }
+
+
+    .subtitle {
+        font-size: 30px;
+    }
+
+    .intro {
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    .navbar-nav {
+        font-size: 20px;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .nav-link {
+        margin: 10px;
+        padding: 10px;
+    }
+    .purplebutton {
+        font-size: 15px;
+    }
+    .features {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .feature {
+        padding: 20px 10px;
+    }
+
+    .faq, .register, .sign_up-container, .dashboard-container, .passgen-container, .profile-container, .password-change-container, .profile-info-container {
+        margin: 20px;
+        padding: 10px;
+    }
+
+    .sidebar-container {
+        width: 100%;
+    }
+
+    .content-home, .features, .pass-generated {
+        width: 100%;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+    .dashboard-container {
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: hidden; /* Disable vertical scrolling */
+        white-space: nowrap; /* Prevents wrapping of child elements */
+        background-color: var(--background-color);
+        padding: 10px;
+        margin: 10px;
+        border-radius: 30px;
+        box-shadow: 8px 4px 8px 2px rgba(0,0,0,0.2);
+
+    }
+
+    .dashboard-container table {
+        width: 100%; /* Ensure table takes full width */
+        min-width: 600px; /* Minimum width to ensure content is visible */
+    }
+
+    .dashboard-container th, .dashboard-container td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    .dashboard-container-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .dashboard-container-button {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .footer {
+        margin-bottom: 0;
+    }
 }

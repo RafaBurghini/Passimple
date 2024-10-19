@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="title">PASSWORD CHANGE</h1>
+    <div class="password-change-container">
+        <form method="post" class="form-pass-change">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="purplebutton">Save</button>
+        </form>
+    </div>
+
+{% endblock %}

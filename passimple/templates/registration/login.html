@@ -3,10 +3,11 @@
 {% block header %} Sign in {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="passgen-container">
+<h1 class="title">LOG IN</h1>
+<div class="sign_up-container">
     <form method="POST">
         {% csrf_token %}{{form|crispy}}
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <button type="submit" class="purplebutton">Sign in</button>
         <p>Don't have an account? <a href="{% url 'sign_up' %}">Create one</a></p>
     </form>
 </div>

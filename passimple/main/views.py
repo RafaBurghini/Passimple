@@ -9,8 +9,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from passwordguard import calculate_password_strength, calculate_cracking_time
-
-
+from django.contrib.auth import get_user_model, logout
+from django.contrib import messages
 
 
 def home(request):
@@ -115,22 +115,6 @@ def passgen(request):
 
 
 
-"""def secury_check(request):
-    password = ''
-    score = 0
-    feedback = []
-    if request.method == 'POST':
-        password = request.POST.get('password')
-    try:
-        verificator = password_verification(password)
-        score = verificator.get('score', 0)
-        feedback = verificator.get('feedback', [])
-    except IndexError:
-        verificator = "Error analyzing password"
-
-    return render(request, 'secury_check.html', {'password': password, 'verificator': verificator, 'score': score, 'feedback': feedback})
-"""
-
 def secury_check(request):
     strength = None
     feedback = None
@@ -142,3 +126,45 @@ def secury_check(request):
             feedback = password_verification(password)['feedback']
             crack_time = calculate_cracking_time(password)
     return render(request, 'secury_check.html', {'strength': strength, 'feedback': feedback, 'crack_time': crack_time})
+
+
+def profile(request):
+    return render(request, 'profile.html')
+
+
+# This function is used to delete the user account
+@login_required
+def delete_account(request):
+    user = get_user_model().objects.get(pk=request.user.pk)
+    user.delete()
+    return redirect('home')
+
+
+
+def password_change(request):
+    return render(request, 'password_change.html')
+
+
+def password_change_done(request):
+    return render(request, 'password_change/done.html')
+
+
+
+@login_required
+def profile_info(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+
+        user = request.user
+        user.username = username
+        user.email = email
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+        messages.success(request, 'Your profile information has been updated successfully.')
+        return redirect('profile_info')
+
+    return render(request, 'profile_info.html', {'user': request.user})

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="title">Account Information</h1>
+    <div class="profile-info-container">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form method="post" action="{% url 'profile_info' %}" class="form-profile_info">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="{{ user.username }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="first_name">Name:</label>
+                <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Surname:</label>
+                <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" class="form-control">
+            </div>
+            <button type="submit" class="purplebutton">Save Changes</button>
+        </form>
+    </div>
+{% endblock %}
