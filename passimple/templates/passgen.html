@@ -36,18 +36,5 @@
                 {% endif %}
             
         </div>
-
-
-        <script>
-            function copypassword() {
-                var passwordText = document.getElementById("generatedPassword").innerText; // Obtiene directamente el texto de la contraseña
-                navigator.clipboard.writeText(passwordText).then(function() {
-                    alert("Password copied to clipboard!"); // Opcional: muestra un mensaje de confirmación
-                }, function(err) {
-                    console.error('Could not copy text: ', err);
-                });
-            }
-        </script>
     </div>
-    
 {% endblock %}

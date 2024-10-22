@@ -26,19 +26,4 @@
             </div>
         </div>
     </div>
-
-
-    <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // Manejar clic en botón de eliminar cuenta
-            document.querySelectorAll('.btn-delaccount').forEach(button => {
-                button.addEventListener('click', function() {
-                    if (confirm("Are you sure you want to delete this account? This action cannot be undone.")) {
-                        document.getElementById('deleteAccountForm').submit();
-                    }
-                });
-            });
-        });
-    </script>
 {% endblock %}
