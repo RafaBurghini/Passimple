@@ -14,7 +14,6 @@ Passimple is a web application developed with Django that allows users to genera
 
 - Python 3.6+
 - Django 3.0+
-- SQLCipher (for SQLite database encryption)
 - Node.js and npm (for handling frontend dependencies if necessary)
 
 ## Installation
@@ -25,7 +24,37 @@ Passimple is a web application developed with Django that allows users to genera
    git clone https://github.com/your-username/passimple.git
    cd passimple
 
-  Usage
+2. **Create and Activate a Virtual Environment**
+   python -m venv env
+   source env/bin/activate
+
+
+3. **Configure the Database**
+
+   Modify your settings.py file to configure the database settings:
+         DATABASES = {
+          'default': {
+              'ENGINE': 'django.db.backends.sqlite3',
+              'NAME': BASE_DIR / 'db.sqlite3',
+          }
+      }
+
+   
+ 5. **Apply Migrations**
+    
+      python manage.py migrate
+
+
+ 6. **Create a Superuser**
+    
+      python manage.py createsuperuser
+
+
+ 7. **Run the Development Server**
+
+      python manage.py runserver
+
+  **Usage**
   1. Password Generation
         Navigate to the password generation section.
         Select the desired options (length, inclusion of special characters, etc.).
