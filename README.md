@@ -58,20 +58,17 @@ Passimple is a web application developed with Django that allows users to genera
 
   ## Usage
    1. **Password Generation**
-      
-           Navigate to the password generation section.
-           Select the desired options (length, inclusion of special characters, etc.).
-           Click "Generate" to obtain a new password.
+           - Navigate to the password generation section.
+           - Select the desired options (length, inclusion of special characters, etc.).
+           - Click "Generate" to obtain a new password.
       
    3. **Security Verification**
-      
-           Navigate to the security verification section.
-           Enter the password you want to verify.
-           Click "Verify" to get an evaluation of the password strength.
+           - Navigate to the security verification section.
+           - Enter the password you want to verify.
+           - Click "Verify" to get an evaluation of the password strength.
       
    5. **Account Management**
-      
-           Registration: Complete the registration form to create a new account.
-           Login: Enter your credentials to log in to your account.
-           Profile: Update your profile information and change your password from the profile section.
-           Delete Account: Delete your account from the profile section.
+           - Registration: Complete the registration form to create a new account.
+           - Login: Enter your credentials to log in to your account.
+           - Profile: Update your profile information and change your password from the profile section.
+           - Delete Account: Delete your account from the profile section.
