@@ -25,33 +25,35 @@ Passimple is a web application developed with Django that allows users to genera
    cd passimple
 
 2. **Create and Activate a Virtual Environment**
+   ```sh
    python -m venv env
    source env/bin/activate
 
 
-3. **Configure the Database**
+4. **Configure the Database**
 
    Modify your settings.py file to configure the database settings:
+         
          DATABASES = {
           'default': {
               'ENGINE': 'django.db.backends.sqlite3',
               'NAME': BASE_DIR / 'db.sqlite3',
           }
-      }
+         }
 
    
- 5. **Apply Migrations**
-    
+ 6. **Apply Migrations**
+       ```sh 
       python manage.py migrate
 
 
- 6. **Create a Superuser**
-    
+ 7. **Create a Superuser**
+     ```sh
       python manage.py createsuperuser
 
 
- 7. **Run the Development Server**
-
+ 8. **Run the Development Server**
+       ```sh
       python manage.py runserver
 
   **Usage**
